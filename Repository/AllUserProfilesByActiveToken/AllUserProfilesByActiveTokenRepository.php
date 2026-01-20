@@ -101,6 +101,7 @@ final readonly class AllUserProfilesByActiveTokenRepository implements AllUserPr
         /** Параметры конструктора объекта гидрации */
         $dbal->select('drom_token.id as value');
         $dbal->addSelect('personal.username AS attr');
+        $dbal->addSelect('drom_token_profile.value AS option');
 
         return $dbal
             ->enableCache('drom', '1 minutes')

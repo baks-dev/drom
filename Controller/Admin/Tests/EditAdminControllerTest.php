@@ -54,7 +54,7 @@ final class EditAdminControllerTest extends WebTestCase
         /** Находим корень */
         $token = $EntityManager
             ->getRepository(DromToken::class)
-            ->find('019b5564-f333-7055-96c3-07440dbd0e47');
+            ->find('019bd5b4-d6bd-72ec-9d4c-033104554a7b');
 
         if(empty($token))
         {

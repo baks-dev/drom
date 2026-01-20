@@ -25,11 +25,11 @@ declare(strict_types=1);
 
 namespace BaksDev\Drom\UseCase\Admin\Delete\Tests;
 
+use BaksDev\Drom\Board\UseCase\Delete\Tests\DromBoardMapperDeleteTest;
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
 use BaksDev\Drom\UseCase\Admin\Delete\DromTokenDeleteDTO;
 use BaksDev\Drom\UseCase\Admin\Delete\DromTokenDeleteHandler;
-use BaksDev\Drom\UseCase\Admin\NewEdit\Tests\DromTokenEditTest;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Tests\DromTokenNewTest;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DependsOnClass;
@@ -42,7 +42,7 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('drom-usecase')]
 final class DromTokenDeleteTest extends KernelTestCase
 {
-    #[DependsOnClass(DromTokenEditTest::class)]
+    #[DependsOnClass(DromBoardMapperDeleteTest::class)]
     public function testDelete(): void
     {
         self::bootKernel();
@@ -54,7 +54,7 @@ final class DromTokenDeleteTest extends KernelTestCase
         /** Находим токен по идентификатору профиля */
         $token = $EntityManager
             ->getRepository(DromToken::class)
-            ->find('019bbc37-f99e-79e3-8989-caf17e189fae');
+            ->find('019bd5b4-d6bd-72ec-9d4c-033104554a7b');
 
         self::assertNotNull($token);
 

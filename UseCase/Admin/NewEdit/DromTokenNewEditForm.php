@@ -30,6 +30,7 @@ use BaksDev\Drom\UseCase\Admin\NewEdit\Key\DromTokenKeyForm;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Kit\DromTokenKitDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Kit\DromTokenKitForm;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Percent\DromTokenPercentForm;
+use BaksDev\Drom\UseCase\Admin\NewEdit\Pricelist\DromTokenPricelistForm;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Profile\DromTokenProfileForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -51,6 +52,8 @@ final class DromTokenNewEditForm extends AbstractType
         $builder->add('active', DromTokenActiveForm::class, ['label' => false]);
 
         $builder->add('percent', DromTokenPercentForm::class, ['label' => false]);
+
+        $builder->add('pricelist', DromTokenPricelistForm::class, ['label' => false]);
 
         $builder->add('drom_token', SubmitType::class, [
             'label' => 'Save',

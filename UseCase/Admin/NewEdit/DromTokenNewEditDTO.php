@@ -31,6 +31,7 @@ use BaksDev\Drom\UseCase\Admin\NewEdit\Active\DromTokenActiveDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Key\DromTokenKeyDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Kit\DromTokenKitDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Percent\DromTokenPercentDTO;
+use BaksDev\Drom\UseCase\Admin\NewEdit\Pricelist\DromTokenPricelistDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Profile\DromTokenProfileDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -55,6 +56,9 @@ final class DromTokenNewEditDTO implements DromTokenEventInterface
     #[Assert\Valid]
     private DromTokenKeyDTO $key;
 
+    #[Assert\Valid]
+    private DromTokenPricelistDTO $pricelist;
+
 
     /**
      * Настройка количества товаров в объявлении
@@ -70,6 +74,7 @@ final class DromTokenNewEditDTO implements DromTokenEventInterface
         $this->percent = new DromTokenPercentDTO;
         $this->key = new DromTokenKeyDTO;
         $this->kit = new ArrayCollection();
+        $this->pricelist = new DromTokenPricelistDTO();
     }
 
     public function setId(?DromTokenEventUid $id): void
@@ -139,6 +144,17 @@ final class DromTokenNewEditDTO implements DromTokenEventInterface
     public function setKey(DromTokenKeyDTO $key): self
     {
         $this->key = $key;
+        return $this;
+    }
+
+    public function getPricelist(): DromTokenPricelistDTO
+    {
+        return $this->pricelist;
+    }
+
+    public function setPricelist(DromTokenPricelistDTO $pricelist): self
+    {
+        $this->pricelist = $pricelist;
         return $this;
     }
 }

@@ -55,7 +55,7 @@ final class DromTokenEditTest extends KernelTestCase
         /** Находим токен по тестовому идентификатору профиля */
         $token = $EntityManager
             ->getRepository(DromToken::class)
-            ->find('019bbc37-f99e-79e3-8989-caf17e189fae');
+            ->find('019bd5b4-d6bd-72ec-9d4c-033104554a7b');
 
         self::assertNotNull($token);
 

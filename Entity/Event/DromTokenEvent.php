@@ -32,6 +32,7 @@ use BaksDev\Drom\Entity\Kit\DromTokenKit;
 use BaksDev\Drom\Entity\Percent\DromTokenPercent;
 use BaksDev\Drom\Entity\Key\DromTokenKey;
 use BaksDev\Drom\Entity\Modify\DromTokenModify;
+use BaksDev\Drom\Entity\Pricelist\DromTokenPricelist;
 use BaksDev\Drom\Entity\Profile\DromTokenProfile;
 use BaksDev\Drom\Type\Event\DromTokenEventUid;
 use BaksDev\Drom\Type\Id\DromTokenUid;
@@ -66,6 +67,10 @@ class DromTokenEvent extends EntityEvent
     /** Ключ авторизации */
     #[ORM\OneToOne(targetEntity: DromTokenKey::class, mappedBy: 'event', cascade: ['all'])]
     private ?DromTokenKey $key = null;
+
+    /** Id прайс-листа */
+    #[ORM\OneToOne(targetEntity: DromTokenPricelist::class, mappedBy: 'event', cascade: ['all'])]
+    private ?DromTokenPricelist $pricelist = null;
 
     /** Настройка для администратора - вкл/выкл токен */
     #[ORM\OneToOne(targetEntity: DromTokenActive::class, mappedBy: 'event', cascade: ['all'])]

@@ -34,6 +34,7 @@ use BaksDev\Drom\UseCase\Admin\NewEdit\DromTokenNewEditDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\DromTokenNewEditHandler;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Key\DromTokenKeyDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Percent\DromTokenPercentDTO;
+use BaksDev\Drom\UseCase\Admin\NewEdit\Pricelist\DromTokenPricelistDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Profile\DromTokenProfileDTO;
 use BaksDev\Core\Type\Modify\Modify\ModifyActionNew;
 use BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest;
@@ -113,6 +114,14 @@ final class DromTokenNewTest extends KernelTestCase
         self::assertSame('DromTokenPercentDTO', $dromTokenPercentDTO->getValue());
 
         $dromTokenNewEditDTO->setPercent($dromTokenPercentDTO);
+
+
+        // DromTokenPercentDTO
+        $dromTokenPricelistDTO = new DromTokenPricelistDTO();
+        $dromTokenPricelistDTO->setValue('DromTokenPricelistDTO');
+        self::assertSame('DromTokenPricelistDTO', $dromTokenPricelistDTO->getValue());
+
+        $dromTokenNewEditDTO->setPricelist($dromTokenPricelistDTO);
 
 
         /** @var DromTokenNewEditHandler $DromTokenNewEditHandler */
