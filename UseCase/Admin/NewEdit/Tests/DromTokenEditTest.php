@@ -28,6 +28,7 @@ namespace BaksDev\Drom\UseCase\Admin\NewEdit\Tests;
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
 use BaksDev\Drom\Entity\Modify\DromTokenModify;
+use BaksDev\Drom\Type\Event\DromTokenEventUid;
 use BaksDev\Drom\UseCase\Admin\NewEdit\DromTokenNewEditDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\DromTokenNewEditHandler;
 use BaksDev\Core\Type\Modify\Modify\ModifyActionUpdate;
@@ -52,17 +53,10 @@ final class DromTokenEditTest extends KernelTestCase
         /** @var EntityManagerInterface $EntityManager */
         $EntityManager = $container->get(EntityManagerInterface::class);
 
-        /** Находим токен по тестовому идентификатору профиля */
-        $token = $EntityManager
-            ->getRepository(DromToken::class)
-            ->find('019bd5b4-d6bd-72ec-9d4c-033104554a7b');
-
-        self::assertNotNull($token);
-
         /** Находим активное событие */
         $activeEvent = $EntityManager
             ->getRepository(DromTokenEvent::class)
-            ->find($token->getEvent());
+            ->find(DromTokenEventUid::TEST);
 
         self::assertNotNull($activeEvent);
 

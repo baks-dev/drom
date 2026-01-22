@@ -40,23 +40,29 @@ use BaksDev\Core\Type\Modify\Modify\ModifyActionNew;
 use BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\DependencyInjection\Attribute\When;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[When(env: 'test')]
 #[Group('drom')]
 #[Group('drom-controller')]
 #[Group('drom-repository')]
 #[Group('drom-usecase')]
-#[Group('drom-board-repository')]
-#[Group('drom-products')]
-#[Group('drom-products-repository')]
 final class DromTokenNewTest extends KernelTestCase
 {
     public static function setUpBeforeClass(): void
     {
+        // Бросаем событие консольной комманды
+        $dispatcher = self::getContainer()->get(EventDispatcherInterface::class);
+        $event = new ConsoleCommandEvent(new Command(), new StringInput(''), new NullOutput());
+        $dispatcher->dispatch($event, 'console.command');
+
         /** @var EntityManagerInterface $EntityManager */
         $EntityManager = self::getContainer()->get(EntityManagerInterface::class);
 
@@ -80,9 +86,12 @@ final class DromTokenNewTest extends KernelTestCase
 
         $EntityManager->flush();
         $EntityManager->clear();
+
+        /** Создаем тестовый продукт */
+        ProductsProductNewAdminUseCaseTest::setUpBeforeClass();
+        new ProductsProductNewAdminUseCaseTest('')->testUseCase();
     }
 
-    #[DependsOnClass(ProductsProductNewAdminUseCaseTest::class)]
     public function testNew(): void
     {
         $dromTokenNewEditDTO = new DromTokenNewEditDTO();

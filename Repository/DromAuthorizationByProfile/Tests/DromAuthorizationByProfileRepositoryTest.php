@@ -42,7 +42,6 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('drom-repository')]
 final class DromAuthorizationByProfileRepositoryTest extends KernelTestCase
 {
-    #[DependsOnClass(DromProductNewTest::class)]
     public function testRepository(): void
     {
         /** @var DromAuthorizationByProfileRepository $DromAuthorizationByProfileRepository */

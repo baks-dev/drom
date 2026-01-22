@@ -27,6 +27,7 @@ namespace BaksDev\Drom\Controller\Admin\Tests;
 
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
+use BaksDev\Drom\Type\Id\DromTokenUid;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Tests\DromTokenNewTest;
 use BaksDev\Users\User\Tests\TestUserAccount;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,7 +55,7 @@ final class EditAdminControllerTest extends WebTestCase
         /** Находим корень */
         $token = $EntityManager
             ->getRepository(DromToken::class)
-            ->find('019bd5b4-d6bd-72ec-9d4c-033104554a7b');
+            ->find(DromTokenUid::TEST);
 
         if(empty($token))
         {

@@ -39,7 +39,6 @@ use BaksDev\Drom\Repository\AllUserProfilesByActiveToken\AllUserProfilesByActive
 #[Group('drom-repository')]
 final class AllUserProfilesByActiveTokenRepositoryTest extends KernelTestCase
 {
-    #[DependsOnClass(DromProductNewTest::class)]
     public function testRepository(): void
     {
         /** @var AllUserProfilesByActiveTokenRepository $AllUserProfilesByActiveTokenRepository */

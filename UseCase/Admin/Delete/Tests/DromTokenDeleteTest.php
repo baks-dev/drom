@@ -25,24 +25,31 @@ declare(strict_types=1);
 
 namespace BaksDev\Drom\UseCase\Admin\Delete\Tests;
 
-use BaksDev\Drom\Board\UseCase\Delete\Tests\DromBoardMapperDeleteTest;
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
+use BaksDev\Drom\Type\Id\DromTokenUid;
 use BaksDev\Drom\UseCase\Admin\Delete\DromTokenDeleteDTO;
 use BaksDev\Drom\UseCase\Admin\Delete\DromTokenDeleteHandler;
+use BaksDev\Drom\UseCase\Admin\NewEdit\Tests\DromTokenEditTest;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Tests\DromTokenNewTest;
+use BaksDev\Products\Product\UseCase\Admin\Delete\Tests\ProductsProductDeleteAdminUseCaseTest;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\DependencyInjection\Attribute\When;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[When(env: 'test')]
 #[Group('drom')]
 #[Group('drom-usecase')]
 final class DromTokenDeleteTest extends KernelTestCase
 {
-    #[DependsOnClass(DromBoardMapperDeleteTest::class)]
+    #[DependsOnClass(DromTokenEditTest::class)]
     public function testDelete(): void
     {
         self::bootKernel();
@@ -54,7 +61,7 @@ final class DromTokenDeleteTest extends KernelTestCase
         /** Находим токен по идентификатору профиля */
         $token = $EntityManager
             ->getRepository(DromToken::class)
-            ->find('019bd5b4-d6bd-72ec-9d4c-033104554a7b');
+            ->find(DromTokenUid::TEST);
 
         self::assertNotNull($token);
 
@@ -83,6 +90,12 @@ final class DromTokenDeleteTest extends KernelTestCase
 
     public static function tearDownAfterClass(): void
     {
+        /** Удаляем тестовый продукт после завершения */
+        ProductsProductDeleteAdminUseCaseTest::tearDownAfterClass();
+
+        /** Удаляем тестовые токен Drom */
         DromTokenNewTest::setUpBeforeClass();
+
+
     }
 }

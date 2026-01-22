@@ -43,8 +43,6 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('drom-repository')]
 final class AllDromTokenInterfaceRepositoryTest extends KernelTestCase
 {
-    #[DependsOnClass(DromProductNewTest::class)]
-    #[DependsOnClass(DromProductImagesNewTest::class)]
     public function testRepository(): void
     {
         /** @var AllDromTokenRepository $AllDromTokenRepository */
