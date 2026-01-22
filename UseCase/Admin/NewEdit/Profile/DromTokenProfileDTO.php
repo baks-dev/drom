@@ -23,15 +23,32 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\UseCase\Admin\NewEdit\Profile;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Entity\Profile\DromTokenProfileInterface;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+/** @see DromTokenProfile */
+final class DromTokenProfileDTO implements DromTokenProfileInterface
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    /** Значение свойства */
+    #[Assert\Uuid]
+    #[Assert\NotBlank]
+    private ?UserProfileUid $value = null;
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    /**
+     * Значение свойства
+     * @see DromTokenEvent
+     */
+    public function getValue(): ?UserProfileUid
+    {
+        return $this->value;
+    }
 
+    public function setValue(?UserProfileUid $value): self
+    {
+        $this->value = $value;
+        return $this;
+    }
 }

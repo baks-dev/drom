@@ -23,15 +23,45 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\Type\Id;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Core\Type\UidType\Uid;
+use JsonException;
+use Symfony\Component\Uid\AbstractUid;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+
+final class DromTokenUid extends Uid
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    public const string TEST = '019b2c4c-5987-7851-a94f-f0533d50bcf8';
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    public const string TYPE = 'drom_token';
 
+    private mixed $attr;
+
+    public function __construct(
+        AbstractUid|string|null $value = null,
+        string|null $attr = null,
+    )
+    {
+        parent::__construct($value);
+        $this->attr = $attr;
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function getAttr(): object|false
+    {
+        if(empty($this->attr))
+        {
+            return false;
+        }
+
+        if(false === json_validate($this->attr))
+        {
+            return false;
+        }
+
+        return json_decode($this->attr, false, 512, JSON_THROW_ON_ERROR);
+    }
 }

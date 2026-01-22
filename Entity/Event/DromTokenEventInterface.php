@@ -23,15 +23,11 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\Entity\Event;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Type\Event\DromTokenEventUid;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+interface DromTokenEventInterface
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
-
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
-
+    public function getEvent(): ?DromTokenEventUid;
 }

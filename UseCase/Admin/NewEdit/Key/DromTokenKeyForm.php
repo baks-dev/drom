@@ -19,19 +19,31 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
+ *
  */
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\UseCase\Admin\NewEdit\Key;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+final class DromTokenKeyForm extends AbstractType
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add('value', TextType::class, ['required' => false]);
+    }
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
-
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => DromTokenKeyDTO::class,
+            'method' => 'POST',
+            'attr' => ['class' => 'w-100'],
+        ]);
+    }
 }

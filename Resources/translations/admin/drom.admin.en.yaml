@@ -1,0 +1,26 @@
+page:
+  index: 'Authorization in Drom'
+  new: 'Add login data in Drom'
+  edit: 'Edit login data in Drom'
+  delete: 'Delete login data in Drom'
+
+breadcrumb:
+  index: 'Authorization in Drom'
+  new: 'Add login data in Drom'
+  edit: 'Edit login data in Drom'
+  delete: 'Delete login data in Drom'
+
+success:
+  new: 'Drom login data has been successfully added'
+  edit: 'Drom login data has been successfully updated'
+  delete: 'Drom login data has been successfully deleted'
+  restore: 'Drom login data has been successfully restored'
+
+danger:
+  new: '%s: Error adding authorization data to Drom'
+  edit: '%s: Error updating login data in Drom'
+  delete: '%s: Error when deleting login data in Drom'
+  restore: '%s: Error while restoring authorization data in Drom'
+form:
+  delete:
+    h4: 'Are you sure you want to delete your Drom login data?'

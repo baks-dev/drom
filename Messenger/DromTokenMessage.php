@@ -23,15 +23,40 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\Messenger;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Type\Event\DromTokenEventUid;
+use BaksDev\Drom\Type\Id\DromTokenUid;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+final readonly class DromTokenMessage
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    public function __construct(
+        private DromTokenUid $id,
+        private DromTokenEventUid $currentEvent,
+        private ?DromTokenEventUid $lastEvent = null,
+    ) {}
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    /**
+     * Идентификатор
+     */
+    public function getId(): DromTokenUid
+    {
+        return $this->id;
+    }
 
+    /**
+     * Идентификатор события
+     */
+    public function getCurrentEvent(): DromTokenEventUid
+    {
+        return $this->currentEvent;
+    }
+
+    /**
+     * Идентификатор предыдущего события
+     */
+    public function getLastEvent(): ?DromTokenEventUid
+    {
+        return $this->lastEvent;
+    }
 }

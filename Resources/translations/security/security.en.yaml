@@ -1,0 +1,27 @@
+# Role
+
+ROLE_DROM_TOKEN:
+  header: 'Drom'
+  name: 'Authorization Tokens'
+  desc: 'Drom auth tokens'
+
+# Rules
+ROLE_DROM_TOKEN_INDEX:
+  name: 'View'
+  desc: ''
+
+ROLE_DROM_TOKEN_NEW:
+  name: 'Add'
+  desc: ''
+
+ROLE_DROM_TOKEN_EDIT:
+  name: 'Edit'
+  desc: ''
+
+ROLE_DROM_TOKEN_DELETE:
+  name: 'Delete'
+  desc: ''
+
+ROLE_DROM_TOKEN_ACTIVE:
+  name: 'Tokens active'
+  desc: ''

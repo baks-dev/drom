@@ -23,15 +23,20 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\Repository\AllDromToken;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Core\Form\Search\SearchDTO;
+use BaksDev\Core\Services\Paginator\PaginatorInterface;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+#[Autoconfigure(public: true)]
+interface AllDromTokenInterface
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    public function search(SearchDTO $search): self;
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    public function profile(UserProfileUid|string $profile): self;
 
+    /** Получаем все токены Drom в виде пагинатора */
+    public function findPaginator(): PaginatorInterface;
 }

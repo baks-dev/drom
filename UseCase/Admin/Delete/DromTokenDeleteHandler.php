@@ -23,15 +23,36 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\UseCase\Admin\Delete;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Entity\DromToken;
+use BaksDev\Drom\Entity\Event\DromTokenEvent;
+use BaksDev\Drom\Messenger\DromTokenMessage;
+use BaksDev\Core\Entity\AbstractHandler;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+final class DromTokenDeleteHandler extends AbstractHandler
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    /** @see DromToken */
+    public function handle(DromTokenDeleteDTO $command): string|DromToken
+    {
+        $this
+            ->setCommand($command)
+            ->preEventRemove(DromToken::class, DromTokenEvent::class);
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+        /** Валидация всех объектов */
+        if($this->validatorCollection->isInvalid())
+        {
+            return $this->validatorCollection->getErrorUniqid();
+        }
 
+        $this->flush();
+
+        /* Отправляем сообщение в шину */
+        $this->messageDispatch->dispatch(
+            message: new DromTokenMessage($this->main->getId(), $this->main->getEvent(), $command->getEvent()),
+            transport: 'drom',
+        );
+
+        return $this->main;
+    }
 }

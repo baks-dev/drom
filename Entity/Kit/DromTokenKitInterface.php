@@ -19,19 +19,20 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
+ *
  */
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\Entity\Kit;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
-
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+interface DromTokenKitInterface
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
-
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    /**
+     * Значение свойства
+     *
+     * @see DromTokenKitDTO
+     */
+    public function getValue(): int;
 
 }

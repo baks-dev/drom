@@ -23,15 +23,51 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\Entity;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Entity\Event\DromTokenEvent;
+use BaksDev\Drom\Type\Event\DromTokenEventUid;
+use BaksDev\Drom\Type\Id\DromTokenUid;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+#[ORM\Entity]
+#[ORM\Table(name: 'drom_token')]
+class DromToken
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    #[Assert\NotBlank]
+    #[Assert\Uuid]
+    #[ORM\Id]
+    #[ORM\Column(type: DromTokenUid::TYPE)]
+    private DromTokenUid $id;
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    #[Assert\NotBlank]
+    #[Assert\Uuid]
+    #[ORM\Column(type: DromTokenEventUid::TYPE, unique: true, nullable: false)]
+    private DromTokenEventUid $event;
 
+    public function __construct()
+    {
+        $this->id = new DromTokenUid();
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
+    }
+
+    public function getId(): DromTokenUid
+    {
+        return $this->id;
+    }
+
+    public function getEvent(): DromTokenEventUid
+    {
+        return $this->event;
+    }
+
+    public function setEvent(DromTokenEvent|DromTokenEventUid $eventId): void
+    {
+        $this->event = $eventId instanceof DromTokenEvent ? $eventId->getId() : $eventId;
+    }
 }

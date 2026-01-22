@@ -23,15 +23,40 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\UseCase\Admin\NewEdit;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Entity\DromToken;
+use BaksDev\Drom\Entity\Event\DromTokenEvent;
+use BaksDev\Drom\Messenger\DromTokenMessage;
+use BaksDev\Core\Entity\AbstractHandler;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+#[Autoconfigure(public: true)]
+final class DromTokenNewEditHandler extends AbstractHandler
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    public function handle(DromTokenNewEditDTO $command): string|DromToken
+    {
+        $this
+            ->setCommand($command)
+            ->preEventPersistOrUpdate(new DromToken(), DromTokenEvent::class);
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+        /** Валидация всех объектов */
+        if($this->validatorCollection->isInvalid())
+        {
+            return $this->validatorCollection->getErrorUniqid();
+        }
+
+        $this->flush();
+
+        $this->messageDispatch
+            ->addClearCacheOther('drom-board')
+            ->addClearCacheOther('drom-products')
+            ->dispatch(
+                message: new DromTokenMessage($this->main->getId(), $this->main->getEvent(), $command->getEvent()),
+                transport: 'drom',
+            );
+
+        return $this->main;
+    }
 
 }

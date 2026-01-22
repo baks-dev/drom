@@ -23,15 +23,39 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\UseCase\Admin\Delete;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Entity\Event\DromTokenEventInterface;
+use BaksDev\Drom\Type\Event\DromTokenEventUid;
+use BaksDev\Drom\UseCase\Admin\Delete\Modify\ModifyDTO;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+final class DromTokenDeleteDTO implements DromTokenEventInterface
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    #[Assert\Uuid]
+    private ?DromTokenEventUid $id = null;
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    #[Assert\Valid]
+    private ModifyDTO $modify;
 
+
+    public function __construct()
+    {
+        $this->modify = new ModifyDTO();
+    }
+
+    public function setId(DromTokenEventUid $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getEvent(): ?DromTokenEventUid
+    {
+        return $this->id;
+    }
+
+    public function getModify(): ModifyDTO
+    {
+        return $this->modify;
+    }
 }

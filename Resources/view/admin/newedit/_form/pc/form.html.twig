@@ -1,0 +1,237 @@
+{% trans_default_domain 'drom.admin' %}
+
+<ul class="nav nav-pills gap-3 mb-3" id="nav-drom-token">
+
+    <li class="nav-item" role="presentation">
+        <button class="btn fw-bolder nav-link active"
+                data-bs-toggle="tab"
+                type="button"
+                role="tab"
+                aria-selected="true"
+
+                id="tab_token-tab"
+                data-bs-target="#tab_token"
+                aria-controls="nav-drom-token"
+        >
+            <small class="text-uppercase px-3">
+                Токен
+            </small>
+        </button>
+    </li>
+
+    <li class="nav-item">
+        <button class="btn fw-bolder nav-link"
+                data-bs-toggle="tab"
+                type="button"
+                role="tab"
+                aria-selected="true"
+
+                id="tab_profile-tab"
+                data-bs-target="#tab_advt"
+                aria-controls="nav-drom-token"
+        >
+            <small class="text-uppercase px-3">
+                Настройки объявлений
+            </small>
+        </button>
+    </li>
+
+</ul>
+
+<div class="tab-content">
+
+    <div class="tab-pane fade show active" id="tab_token" role="tabpanel">
+
+        {# Если администратор ресурса #}
+        {% if is_granted('ROLE_ADMIN') and form.profile is defined %}
+            {{ form_widget(form.profile, { label: 'Профиль пользователя', placeholder: 'Выберите профиль из списка...' }) }}
+        {% endif %}
+
+        <div class="w-100 mb-3 clearfix">
+
+            <div class="d-flex gap-2 align-items-center mb-2">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="16" height="16"
+                     fill="currentColor"
+                     class="text-muted" viewBox="0 0 16 16"
+
+                     role="tooltip"
+                     data-bs-toggle="tooltip"
+                     data-bs-placement="bottom"
+                     data-bs-original-title="Профиль и настройки -> Интеграции и API"
+
+                >
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+                </svg>
+
+                {{ form_label(form.key.value, 'Ключ клиента (для запросов по API)', { label_attr: { class: 'm-0'}} ) }}
+
+            </div>
+
+            {{ form_widget(form.key.value) }}
+
+        </div>
+
+
+        {% if form.key.vars.data %}
+            <div class="alert alert-warning" role="alert">
+                В целях безопасности ключ клиента не отображается в форме. Оставьте поле пустым, если  обновление ключа
+                не требуется!
+            </div>
+        {% endif %}
+
+        <div class="d-flex gap-3">
+
+            <div class="w-100">
+
+                <div class="d-flex gap-2 align-items-center mb-2">
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="16" height="16"
+                         fill="currentColor"
+                         class="text-muted" viewBox="0 0 16 16"
+
+                         role="tooltip"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="bottom"
+                         data-bs-original-title="Положительное либо отрицательное число в рублях, либо с процентом ( 100 || -100 || 10% || -10% )"
+
+                    >
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+                    </svg>
+
+                    {{ form_label(form.percent.value, 'Торговая наценка', { label_attr: { class: 'm-0'}} ) }}
+
+                </div>
+
+
+                {{ form_widget(form.percent.value, { label: 'Торговая наценка Drom' }) }}
+            </div>
+        </div>
+
+        <div class="d-flex gap-3 pt-3 pb-3">
+
+            <div class="w-100">
+
+                <div class="d-flex gap-2 align-items-center mb-2">
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="16" height="16"
+                         fill="currentColor"
+                         class="text-muted" viewBox="0 0 16 16"
+
+                         role="tooltip"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="bottom"
+                         data-bs-original-title="Значение вида 55359 хранится в ссылке на прайс-лист (https://baza.drom.ru/personal/goods/packet/{id}/recurrent-update)"
+                    >
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+                    </svg>
+
+                    {{ form_label(form.pricelist.value, 'Id прайс-листа Drom', { label_attr: { class: 'm-0'}} ) }}
+
+                </div>
+
+
+                {{ form_widget(form.pricelist.value, { label: 'Id прайс-листа Drom' }) }}
+            </div>
+        </div>
+
+        {% if is_granted('ROLE_DROM_TOKEN_ACTIVE') or is_granted('ROLE_ADMIN') %}
+            <div class="flex-fill d-flex justify-content-around pb-3 radio-buttons gap-3" data-buttons="true">
+
+                <label class="btn p-3 border-dotted rounded-3 w-100 {{ form.active.value.vars.data ? 'active' }}">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                        <span class="h5">
+                            <div class="form-check d-flex align-items-center">
+                                {{ form_widget(form.active.value, { label: false }) }}
+                                <span>
+                                    Активный токен
+                                </span>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        {% endif %}
+
+    </div>
+
+    <div class="tab-pane fade" id="tab_advt" role="tabpanel">
+
+        <div class="d-flex gap-2 mb-4">
+            <span>Количество товаров в объявлении:</span>
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="16" height="16"
+                 fill="currentColor"
+                 class="align-self-center text-muted me-2" viewBox="0 0 16 16"
+                 role="tooltip"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="bottom"
+                 data-bs-original-title="При добавлении дополнительных элементов КАЖДОЕ объявление будет продублированно при публикации">
+
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+            </svg>
+        </div>
+
+
+        <div id="kit_сollection" class="d-flex mb-2 w-50">
+
+            {% for key, kit in form.kit %}
+
+                <div id="drom_token_form_kit-{{ key }}"
+                     class="w-25 d-flex align-items-center gap-1 mb-1 pe-1 item-kit">
+
+                    {{ form_widget(kit.value, { label: '' }) }}
+
+                    {# Кнопка удаления элемента коллекции #}
+                    <button id="delete-drom_token_form_kit-{{ key }}" type="button"
+                            class="btn btn-outline-danger border-0 del-item-kit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             viewBox="0 0 16 16" class="mb-1">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"></path>
+                        </svg>
+                    </button>
+
+                </div>
+
+            {% endfor %}
+        </div>
+
+        {# Кнопка добавления элемента коллекции #}
+        <button id="kit_сollection_add" type="button"
+                class="btn btn-sm btn-outline-primary border-0"
+                data-prototype="kitCollection_prototype"
+                data-index="{{ form.kit.count }}">
+
+                <span class="svg-icon svg-icon-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none">
+                        <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)"
+                              fill="currentColor"></rect>
+                        <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
+                    </svg>
+                </span>
+
+            Добавить параметр
+        </button>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

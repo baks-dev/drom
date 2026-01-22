@@ -23,15 +23,24 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\UseCase\Admin\NewEdit\Active;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Entity\Active\DromTokenActiveInterface;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+/** @see DromTokenActive */
+final class DromTokenActiveDTO implements DromTokenActiveInterface
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    /** Значение свойства */
+    private bool $value = false;
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    public function getValue(): bool
+    {
+        return $this->value;
+    }
 
+    public function setValue(mixed $value): self
+    {
+        $this->value = ($value === true);
+        return $this;
+    }
 }

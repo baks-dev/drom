@@ -1,0 +1,28 @@
+# Роль
+
+ROLE_DROM_TOKEN:
+  header: 'Drom'
+  name: 'Токены авторизации Drom'
+  desc: 'Токены авторизации Drom'
+
+# Правила
+
+ROLE_DROM_TOKEN_INDEX:
+  name: 'Просмотр'
+  desc: ''
+
+ROLE_DROM_TOKEN_NEW:
+  name: 'Добавить'
+  desc: ''
+
+ROLE_DROM_TOKEN_EDIT:
+  name: 'Редактировать'
+  desc: ''
+
+ROLE_DROM_TOKEN_DELETE:
+  name: 'Удалить'
+  desc: ''
+
+ROLE_DROM_TOKEN_ACTIVE:
+  name: 'Активность токенов'
+  desc: ''

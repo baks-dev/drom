@@ -21,17 +21,27 @@
  *  THE SOFTWARE.
  */
 
-declare(strict_types=1);
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-namespace BaksDev\Drom;
+use BaksDev\Drom\BaksDevDromBundle;
+use BaksDev\Drom\Type\Event\DromTokenEventType;
+use BaksDev\Drom\Type\Event\DromTokenEventUid;
+use BaksDev\Drom\Type\Id\DromTokenType;
+use BaksDev\Drom\Type\Id\DromTokenUid;
+use Symfony\Config\DoctrineConfig;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+return static function(DoctrineConfig $doctrine) {
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
-{
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    $doctrine->dbal()->type(DromTokenUid::TYPE)->class(DromTokenType::class);
+    $doctrine->dbal()->type(DromTokenEventUid::TYPE)->class(DromTokenEventType::class);
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    $emDefault = $doctrine->orm()->entityManager('default')->autoMapping(true);
 
-}
+    $emDefault
+        ->mapping('drom')
+        ->type('attribute')
+        ->dir(BaksDevDromBundle::PATH.'Entity')
+        ->isBundle(false)
+        ->prefix(BaksDevDromBundle::NAMESPACE.'\\Entity')
+        ->alias('drom');
+};

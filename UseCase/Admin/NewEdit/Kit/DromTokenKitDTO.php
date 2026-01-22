@@ -19,19 +19,32 @@
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
+ *
  */
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\UseCase\Admin\NewEdit\Kit;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Drom\Entity\Kit\DromTokenKitInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+/** @see DromTokenKit */
+final class DromTokenKitDTO implements DromTokenKitInterface
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    /** Значение свойства */
+    #[Assert\NotBlank]
+    #[Assert\Range(min: 1, max: 4)]
+    private int $value = 1;
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
+    public function getValue(): int
+    {
+        return $this->value;
+    }
 
+    public function setValue(int $value): self
+    {
+        $this->value = $value;
+        return $this;
+    }
 }

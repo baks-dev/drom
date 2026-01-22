@@ -23,15 +23,19 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Drom;
+namespace BaksDev\Drom\Type\Id;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use BaksDev\Core\Type\UidType\UidType;
 
-/** @note Индекс сортировки 460 */
-class BaksDevDromBundle extends AbstractBundle
+final class DromTokenType extends UidType
 {
-    public const string NAMESPACE = __NAMESPACE__.'\\';
+    public function getClassType(): string
+    {
+        return DromTokenUid::class;
+    }
 
-    public const string PATH = __DIR__.DIRECTORY_SEPARATOR;
-
+    public function getName(): string
+    {
+        return DromTokenUid::TYPE;
+    }
 }
