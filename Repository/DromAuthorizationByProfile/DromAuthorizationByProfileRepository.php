@@ -25,14 +25,14 @@ declare(strict_types=1);
 
 namespace BaksDev\Drom\Repository\DromAuthorizationByProfile;
 
-use BaksDev\Drom\Entity\DromToken;
+use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Drom\Entity\Active\DromTokenActive;
+use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Key\DromTokenKey;
 use BaksDev\Drom\Entity\Percent\DromTokenPercent;
 use BaksDev\Drom\Entity\Pricelist\DromTokenPricelist;
 use BaksDev\Drom\Entity\Profile\DromTokenProfile;
 use BaksDev\Drom\Type\Authorization\DromTokenAuthorization;
-use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Info\UserProfileInfo;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use BaksDev\Users\Profile\UserProfile\Type\UserProfileStatus\Status\UserProfileStatusActive;
@@ -58,8 +58,9 @@ final class DromAuthorizationByProfileRepository implements DromAuthorizationByP
                 'drom_token_profile',
                 DromToken::class,
                 'drom_token',
-                'drom_token_profile.event = drom_token.event'
+                'drom_token.event = drom_token_profile.event',
             );
+
 
         $dbal->join(
             'drom_token',
@@ -69,6 +70,7 @@ final class DromAuthorizationByProfileRepository implements DromAuthorizationByP
             drom_token_active.event = drom_token.event AND 
             drom_token_active.value IS TRUE',
         );
+
 
         $dbal->join(
             'drom_token',
@@ -91,19 +93,6 @@ final class DromAuthorizationByProfileRepository implements DromAuthorizationByP
                 DromTokenKey::class,
                 'drom_token_key',
                 'drom_token_key.event = drom_token.event',
-            );
-
-        $dbal
-            ->join(
-                'drom_token',
-                UserProfileInfo::class,
-                'info',
-                'info.profile = drom_token_profile.value AND info.status = :status',
-            )
-            ->setParameter(
-                'status',
-                UserProfileStatusActive::class,
-                UserProfileStatus::TYPE,
             );
 
         $dbal

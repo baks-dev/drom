@@ -31,10 +31,10 @@ use BaksDev\Drom\Repository\DromAuthorizationByProfile\DromAuthorizationByProfil
 use BaksDev\Drom\Type\Authorization\DromTokenAuthorization;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
 use ReflectionMethod;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
 #[When(env: 'test')]
@@ -42,27 +42,34 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('drom-repository')]
 final class DromAuthorizationByProfileRepositoryTest extends KernelTestCase
 {
+    //#[DependsOnClass(DromTokenNewTest::class)]
     public function testRepository(): void
     {
+        self::assertTrue(true);
+
         /** @var DromAuthorizationByProfileRepository $DromAuthorizationByProfileRepository */
         $DromAuthorizationByProfileRepository = self::getContainer()
             ->get(DromAuthorizationByProfileInterface::class);
 
-        $profileUid = $_SERVER['TEST_PROFILE'] ?? UserProfileUid::TEST;
+        //$profileUid = $_SERVER['TEST_PROFILE'] ?? UserProfileUid::TEST;
+        $profileUid = UserProfileUid::TEST;
 
-        $result = $DromAuthorizationByProfileRepository->getAuthorization(new UserProfileUid($profileUid));
+        $DromTokenAuthorization = $DromAuthorizationByProfileRepository
+            ->getAuthorization(new UserProfileUid($profileUid));
 
-        self::assertInstanceOf(DromTokenAuthorization::class, $result);
+        self::assertInstanceOf(DromTokenAuthorization::class, $DromTokenAuthorization);
 
         // Вызываем все геттеры
         $reflectionClass = new ReflectionClass(DromTokenAuthorization::class);
         $methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
 
-        foreach ($methods as $method) {
+        foreach($methods as $method)
+        {
             // Методы без аргументов
-            if ($method->getNumberOfParameters() === 0) {
+            if($method->getNumberOfParameters() === 0)
+            {
                 // Вызываем метод
-                $data = $method->invoke($result);
+                $data = $method->invoke($DromTokenAuthorization);
                 //dump($data);
             }
         }

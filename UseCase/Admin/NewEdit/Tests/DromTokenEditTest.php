@@ -25,13 +25,14 @@ declare(strict_types=1);
 
 namespace BaksDev\Drom\UseCase\Admin\NewEdit\Tests;
 
+use BaksDev\Core\Type\Modify\Modify\ModifyActionUpdate;
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
 use BaksDev\Drom\Entity\Modify\DromTokenModify;
+use BaksDev\Drom\Repository\DromAuthorizationByProfile\Tests\DromAuthorizationByProfileRepositoryTest;
 use BaksDev\Drom\Type\Event\DromTokenEventUid;
 use BaksDev\Drom\UseCase\Admin\NewEdit\DromTokenNewEditDTO;
 use BaksDev\Drom\UseCase\Admin\NewEdit\DromTokenNewEditHandler;
-use BaksDev\Core\Type\Modify\Modify\ModifyActionUpdate;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -45,6 +46,7 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 final class DromTokenEditTest extends KernelTestCase
 {
     #[DependsOnClass(DromTokenNewTest::class)]
+    #[DependsOnClass(DromAuthorizationByProfileRepositoryTest::class)]
     public function testEdit(): void
     {
         self::bootKernel();

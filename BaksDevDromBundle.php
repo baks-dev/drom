@@ -27,7 +27,7 @@ namespace BaksDev\Drom;
 
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-/** @note Индекс сортировки 460 */
+/** @note Индекс сортировки 470 */
 class BaksDevDromBundle extends AbstractBundle
 {
     public const string NAMESPACE = __NAMESPACE__.'\\';

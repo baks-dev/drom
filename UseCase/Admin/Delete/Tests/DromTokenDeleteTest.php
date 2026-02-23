@@ -27,6 +27,7 @@ namespace BaksDev\Drom\UseCase\Admin\Delete\Tests;
 
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
+use BaksDev\Drom\Repository\DromAuthorizationByProfile\Tests\DromAuthorizationByProfileRepositoryTest;
 use BaksDev\Drom\Type\Id\DromTokenUid;
 use BaksDev\Drom\UseCase\Admin\Delete\DromTokenDeleteDTO;
 use BaksDev\Drom\UseCase\Admin\Delete\DromTokenDeleteHandler;
@@ -50,6 +51,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 final class DromTokenDeleteTest extends KernelTestCase
 {
     #[DependsOnClass(DromTokenEditTest::class)]
+    #[DependsOnClass(DromAuthorizationByProfileRepositoryTest::class)]
     public function testDelete(): void
     {
         self::bootKernel();
@@ -95,7 +97,6 @@ final class DromTokenDeleteTest extends KernelTestCase
 
         /** Удаляем тестовые токен Drom */
         DromTokenNewTest::setUpBeforeClass();
-
 
     }
 }

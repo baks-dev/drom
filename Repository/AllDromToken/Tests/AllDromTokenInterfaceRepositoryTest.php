@@ -30,12 +30,13 @@ use BaksDev\Drom\Products\UseCase\NewEdit\Tests\DromProductNewTest;
 use BaksDev\Drom\Repository\AllDromToken\AllDromTokenInterface;
 use BaksDev\Drom\Repository\AllDromToken\AllDromTokenRepository;
 use BaksDev\Drom\Repository\AllDromToken\DromTokensResult;
+use BaksDev\Drom\UseCase\Admin\NewEdit\Tests\DromTokenNewTest;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
 use ReflectionMethod;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
 #[When(env: 'test')]
@@ -43,6 +44,7 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('drom-repository')]
 final class AllDromTokenInterfaceRepositoryTest extends KernelTestCase
 {
+    #[DependsOnClass(DromTokenNewTest::class)]
     public function testRepository(): void
     {
         /** @var AllDromTokenRepository $AllDromTokenRepository */
@@ -55,7 +57,8 @@ final class AllDromTokenInterfaceRepositoryTest extends KernelTestCase
             ->findPaginator()
             ->getData();
 
-        foreach ($result as $item) {
+        foreach($result as $item)
+        {
             self::assertInstanceOf(DromTokensResult::class, $item);
 
             // Вызываем все геттеры
@@ -72,8 +75,6 @@ final class AllDromTokenInterfaceRepositoryTest extends KernelTestCase
                     //dump($data);
                 }
             }
-
-            return;
         }
     }
 }

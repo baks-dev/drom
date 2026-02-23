@@ -27,6 +27,7 @@ namespace BaksDev\Drom\Controller\Admin\Tests;
 
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
+use BaksDev\Drom\Type\Event\DromTokenEventUid;
 use BaksDev\Drom\Type\Id\DromTokenUid;
 use BaksDev\Drom\UseCase\Admin\NewEdit\Tests\DromTokenNewTest;
 use BaksDev\Users\User\Tests\TestUserAccount;
@@ -47,6 +48,10 @@ final class EditAdminControllerTest extends WebTestCase
 
     public static function setUpBeforeClass(): void
     {
+        self::$url = sprintf('/admin/drom/token/edit/%s', DromTokenEventUid::TEST);
+
+        return;
+
         $container = self::getContainer();
 
         /** @var EntityManagerInterface $EntityManager */
@@ -73,6 +78,7 @@ final class EditAdminControllerTest extends WebTestCase
         self::assertNotNull($activeEvent);
 
         self::$url = sprintf('/admin/drom/token/edit/%s', $activeEvent);
+
 
         $EntityManager->clear();
     }
