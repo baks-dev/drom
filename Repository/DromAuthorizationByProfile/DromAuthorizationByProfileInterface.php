@@ -27,7 +27,9 @@ namespace BaksDev\Drom\Repository\DromAuthorizationByProfile;
 
 use BaksDev\Drom\Type\Authorization\DromTokenAuthorization;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+#[Autoconfigure(public: true)]
 interface DromAuthorizationByProfileInterface
 {
     public function getAuthorization(UserProfileUid $profile): DromTokenAuthorization|false;
