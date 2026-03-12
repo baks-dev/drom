@@ -25,13 +25,13 @@ declare(strict_types=1);
 
 namespace BaksDev\Drom\UseCase\Admin\NewEdit;
 
+use BaksDev\Core\Entity\AbstractHandler;
 use BaksDev\Drom\Entity\DromToken;
 use BaksDev\Drom\Entity\Event\DromTokenEvent;
 use BaksDev\Drom\Messenger\DromTokenMessage;
-use BaksDev\Core\Entity\AbstractHandler;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-#[Autoconfigure(public: true)]
+// #[Autoconfigure(public: true)]
 final class DromTokenNewEditHandler extends AbstractHandler
 {
     public function handle(DromTokenNewEditDTO $command): string|DromToken

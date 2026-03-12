@@ -30,7 +30,7 @@ use BaksDev\Core\Services\Paginator\PaginatorInterface;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-#[Autoconfigure(public: true)]
+// #[Autoconfigure(public: true)]
 interface AllDromTokenInterface
 {
     public function search(SearchDTO $search): self;
